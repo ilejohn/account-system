@@ -1,0 +1,36 @@
+{
+  "name": "account-system",
+  "version": "1.0.0",
+  "description": "Basic credit and debit system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js",
+    "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "seed": "knex seed:run --knexfile database/knexfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilejohn/account-system.git"
+  },
+  "keywords": [
+    "Node",
+    "Knex",
+    "Account"
+  ],
+  "author": "Opeyemi Ilesanmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilejohn/account-system/issues"
+  },
+  "homepage": "https://github.com/ilejohn/account-system#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^1.0.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15"
+  }
+}
