@@ -8,13 +8,11 @@ const { authenticateUser } = require("../middlewares");
 router.post("/login", async (request, response) => {
     const email = request.body.email;
 
-    db('users').where({email: email}).then((user) => {
+    db('users').select('id', 'email', 'name').where({email: email}).then((user) => {
 
        const token = jwt.sign(
             {
-              _id: user._id,
-              email: user.email,
-              name: user.email
+              ...user[0]
             },
             appKey,
             { expiresIn: 30*60 }, // expires in 30 minutes

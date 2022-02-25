@@ -2,25 +2,78 @@ const User = require("../models/user");
 
 let UserController = {
 
-  all: (request, response) => {
+  all: async (request, response) => {
+    try {
+      const users = await User.all();
 
+      response.status(200).json({
+        status: 'success',
+        message: 'All Users retrieved successfully.',
+        data: users
+    });
+   
+    } catch (error) {
+      response.json({status: 'error', message: error.message});
+    }
   },
   
-  create: (request, response) => {
-  
+  create: async (request, response) => {
+
+    if (request.headers.authorization) {
+      return  response.status(403).json({status: 'error', message: 'logout before you can create user'});
+    }
+
+    const name = request.body.name;
+    const email = request.body.email;
+
+    if (!name || !email) {
+      return response.status(422).json({status: 'error', message: 'Name and email required'});
+    }
+
+    if(typeof name !== 'string') {
+      return response.status(422).json({status: 'error', message: 'Invalid name supplied. Name must be string'});
+    }
+
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    if(!validateEmail(email)) {
+      return response.status(422).json({status: 'error', message: 'Invalid email type supplied'});
+    }
+
+    try {
+      const user = await User.create({name,email});
+
+      response.status(200).json({
+        status: 'success',
+        message: 'User created successfully.',
+        data: user
+      });
+    } catch (error) {
+      response.json({status: 'error', message: `${error.message}. failed to create user`});
+    }
   },
 
-  show: (request, response) => {
+  showAuthUser: (request, response) => {
+    const user = request.user;
 
+    try {
+
+      response.status(200).json({
+        status: 'success',
+        message: 'Auth User retrieved successfully.',
+        data: user
+    });
+   
+    } catch (error) {
+      response.json({status: 'error', message: "failed to retrieve auth user"});
+    }
   },
-
-  update: (request, response) => {
-
-  },
-
-  delete: (request, response) => {
-
-  }
   
 };
 
