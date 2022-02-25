@@ -31,7 +31,7 @@ let AccountController = {
       });
    
     } catch (error) {
-      response.json({status: 'error', message: "failed to create account"});
+      response.json({status: 'error', message: `${error.message}.failed to create account`});
     }
   },
 

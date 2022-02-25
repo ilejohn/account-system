@@ -5,9 +5,9 @@ const all = () => {
 };
 
 const create = async (data) => {
-  const checkUser = await db('users').where('email', data.email);
+  const checkUser = await db('users').where('email', data.email).first();
 
-  if (checkUser[0] !== undefined) {
+  if (checkUser !== undefined) {
     throw new Error('Email already exists');
   }
 
