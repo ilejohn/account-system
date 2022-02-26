@@ -52,14 +52,11 @@ describe("Test /users route", () => {
                 email: "balton@example.com"
               };
  
-            try {
                  const response = await request(app).post("/users").send(user);
                  expect(response.statusCode).toBe(201);
                  expect(response.body.data.name).toBe(user.name);
                  expect(response.body.data.email).toBe(user.email);
-             } catch (error) {
-                 console.log(error);
-             }
+
         });    
   });
  
@@ -73,14 +70,11 @@ describe("Test /users route", () => {
              ];
          
              await db('users').insert(users);
-           
-           try {
+
               const response = await request(app).get("/users").set('Authorization', `Bearer ${token}`);
               expect(response.statusCode).toBe(200);
               expect(response.body.data.length).toBe(5);
-             } catch (error) {
-                 console.log(error)
-             }
+
          });
   });
 });
@@ -89,7 +83,6 @@ describe("Test /users route", () => {
 describe("Test /accounts route", () => {
 
     test("account creation ", async () => {
-        try {
             const response = await request(app).post("/accounts").set('Authorization', `Bearer ${token}`);
              
              expect(response.statusCode).toBe(201);
@@ -98,18 +91,13 @@ describe("Test /accounts route", () => {
              expect(response.body.data.pending_debit_balance).toBe(0);
              expect(response.body.data.available_balance).toBe(0);
              expect(response.body.data.pending_credit_balance).toBe(0);
-             
-         } catch (error) {
-             console.log(error);
-         }
+
     });    
 });
 
 describe("Test /transactions route", () => {
 
     test("account funding ", async () => {
-        try {
-
             await db('accounts').insert({user_id: authUser.id});
             const response = await request(app).post("/transactions/fund-account").send({amount: 1000000}).set('Authorization', `Bearer ${token}`);
              
@@ -119,14 +107,10 @@ describe("Test /transactions route", () => {
              expect(response.body.data.pending_debit_balance).toBe(0);
              expect(response.body.data.available_balance).toBe(1000000);
              expect(response.body.data.pending_credit_balance).toBe(0);
-             
-         } catch (error) {
-             console.log(error);
-         }
+
     }); 
     
     test("account transfer ", async () => {
-        try {
             
             const accountId = await db('accounts').insert({user_id: authUser.id});
             await db('accounts').where('id', accountId[0]).increment('available_balance', 2000000);
@@ -153,10 +137,21 @@ describe("Test /transactions route", () => {
              expect(recepientAccount.pending_debit_balance).toBe(0);
              expect(recepientAccount.available_balance).toBe(1000000);
              expect(recepientAccount.pending_credit_balance).toBe(0);
+    });
+    
+    test("account withdrawal ", async () => {
+
+            const accountId = await db('accounts').insert({user_id: authUser.id});
+            await db('accounts').where('id', accountId[0]).increment('available_balance', 2000000);
+            const response = await request(app).post("/transactions/withdraw").send({amount: 1900000}).set('Authorization', `Bearer ${token}`);
              
-         } catch (error) {
-             console.log(error);
-         }
+             expect(response.statusCode).toBe(200);
+             expect(response.body.message).toBe("Withdrawal successful.");
+             expect(response.body.data.user_id).toBe(authUser.id);
+             expect(response.body.data.pending_debit_balance).toBe(0);
+             expect(response.body.data.available_balance).toBe(100000);
+             expect(response.body.data.pending_credit_balance).toBe(0);
+
     }); 
 });
 
