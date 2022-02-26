@@ -9,6 +9,6 @@ router.get("/", TransactionController.all);
 router.post("/fund-account", TransactionController.fundAccount);
 router.post("/transfer", TransactionController.transfer);
 router.post("/withdraw", TransactionController.withdraw);
-router.get("/:id", TransactionController.show);
+router.get("/auth", TransactionController.showAuthUserTransactions);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const validateEmail = require("../validator/validateEmail");
 
 let UserController = {
 
@@ -33,14 +34,6 @@ let UserController = {
     if(typeof name !== 'string') {
       return response.status(422).json({status: 'error', message: 'Invalid name supplied. Name must be string'});
     }
-
-    const validateEmail = (email) => {
-      return String(email)
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-    };
 
     if(!validateEmail(email)) {
       return response.status(422).json({status: 'error', message: 'Invalid email type supplied'});

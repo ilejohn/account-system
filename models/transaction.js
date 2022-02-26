@@ -19,6 +19,10 @@ const create = async (data) => {
     });
 };
 
+const getAuthTransactions = async (account_id) => {
+    return db('transactions').where({account_id});
+}
+
 module.exports = {
-    all, create
+    all, create, getAuthTransactions
 }

@@ -45,7 +45,7 @@ let AccountController = {
       response.status(200).json({
         status: 'success',
         message: 'Auth User Account retrieved successfully.',
-        data: account
+        data: account ? account : null
       });
    
     } catch (error) {
