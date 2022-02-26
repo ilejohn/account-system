@@ -1,5 +1,5 @@
 require("dotenv").config({path: '../.env'});
-const {dbClient, dbHost, dbPort, dbUser, dbPassword, dbDatabase } = require("../config");
+const {dbClient, dbHost, dbPort, dbUser, dbPassword, dbDatabase, dbDatabaseTest } = require("../config");
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -29,14 +29,11 @@ module.exports = {
       port: dbPort,
       user: dbUser,
       password: dbPassword,
-      database: 'accountsystemtest'
+      database: dbDatabaseTest
     },
     migrations: {
       tableName: 'migrations'
     },
-    seeds: {
-      directory: '../test_seed'
-    }
   },
 
 };

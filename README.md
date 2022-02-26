@@ -14,7 +14,12 @@ npm install
 npm run migrate
 ```
 
-# seed database
+# To seed database
 ```
 npm run seed
+```
+
+# To run testing
+```
+npm run test
 ```
