@@ -4,6 +4,10 @@ const validateEmail = require("../validator/validateEmail");
 
 let TransactionController = {
 
+   /**
+     * Retrieve all transactions
+     *
+     */
   all: async (request, response) => {
     try {
       const transactions = await Transaction.all();
@@ -18,6 +22,11 @@ let TransactionController = {
       response.status(400).json({status: 'error', message: error.message});
     }
   },
+
+   /**
+     * Fund account
+     *
+     */
   
   fundAccount: async (request, response) => {
     const amount = request.body.amount;
@@ -44,6 +53,11 @@ let TransactionController = {
     }
   },
 
+   /**
+     * Show authenticated user transactions
+     *
+     */
+
   showAuthUserTransactions: async (request, response) => {
     const user = request.user;
 
@@ -65,6 +79,11 @@ let TransactionController = {
       response.status(400).json({status: 'error', message: `${error.message}, failed to retrieve auth user transactions`});
     }
   },
+
+   /**
+     * Transfer to another account
+     *
+     */
 
   transfer: async (request, response) => {
     const amount = request.body.amount;
@@ -99,6 +118,11 @@ let TransactionController = {
       response.status(400).json({status: 'error', message: `${error.message}. failed to transfer`});
     }
   },
+
+   /**
+     * Withdraw from account
+     *
+     */
 
   withdraw: async (request, response) => {
     const amount = request.body.amount;

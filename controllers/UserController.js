@@ -3,6 +3,10 @@ const validateEmail = require("../validator/validateEmail");
 
 let UserController = {
 
+   /**
+     * Retrieve all users
+     *
+     */
   all: async (request, response) => {
     try {
       const users = await User.all();
@@ -17,6 +21,11 @@ let UserController = {
       response.status(400).json({status: 'error', message: 'Users failed to be retrieved'});
     }
   },
+
+   /**
+     * Create user
+     *
+     */
   
   create: async (request, response) => {
 
@@ -51,6 +60,11 @@ let UserController = {
       response.status(400).json({status: 'error', message: `${error.message}. failed to create user`});
     }
   },
+
+   /**
+     * Show authenticated user
+     *
+     */
 
   showAuthUser: (request, response) => {
     const user = request.user;

@@ -2,6 +2,10 @@ const Account = require("../models/account");
 
 let AccountController = {
 
+   /**
+     * Retrieve all accounts
+     *
+     */
   all: async (request, response) => {
     try {
       const accounts = await Account.all();
@@ -16,7 +20,12 @@ let AccountController = {
       response.status(400).json({status: 'error', message: "failed to retrieve accounts"});
     }
   },
-  
+
+
+   /**
+     * Create an account for authenticated user
+     *
+     */
   create: async (request, response) => {
     const user = request.user;
 
@@ -34,6 +43,11 @@ let AccountController = {
       response.status(400).json({status: 'error', message: `${error.message}.failed to create account`});
     }
   },
+
+   /**
+     * Show authenticated user account
+     *
+     */
 
   showAuthUserAccount: async (request, response) => {
     const user = request.user;

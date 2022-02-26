@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const { appKey } = require("../config");
 const { authenticateUser } = require("../middlewares");
 
+/**
+ * Login with email
+ *
+ */
 router.post("/login", async (request, response) => {
     const email = request.body.email;
 
@@ -28,6 +32,11 @@ router.post("/login", async (request, response) => {
     })
 
 });
+
+ /**
+ * Logout
+ * 
+ */
 
 router.post("/logout", authenticateUser, (request, response) => {
     const user = request.user;
