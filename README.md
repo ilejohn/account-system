@@ -19,6 +19,11 @@ npm run migrate
 npm run seed
 ```
 
+# To run on local
+```
+npm run serve
+```
+
 # To run testing
 ```
 npm run test
