@@ -4,9 +4,12 @@
   "description": "Basic credit and debit system",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "nodemon index.js",
+    "pretest": "cross-env APP_ENV=test npm run migrate:reset && npm run migrate:test",
+    "test": "cross-env APP_ENV=test jest --testTimeout=10000 --detectOpenHandles",
     "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "migrate:reset": "knex migrate:rollback --all --env test --knexfile database/knexfile.js",
+    "migrate:test": "knex migrate:latest --env test --knexfile database/knexfile.js",
     "seed": "knex seed:run --knexfile database/knexfile.js"
   },
   "repository": {
@@ -32,5 +35,10 @@
     "knex": "^1.0.3",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   }
 }

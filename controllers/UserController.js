@@ -14,7 +14,7 @@ let UserController = {
     });
    
     } catch (error) {
-      response.json({status: 'error', message: error.message});
+      response.status(400).json({status: 'error', message: 'Users failed to be retrieved'});
     }
   },
   
@@ -42,13 +42,13 @@ let UserController = {
     try {
       const user = await User.create({name,email});
 
-      response.status(200).json({
+      response.status(201).json({
         status: 'success',
         message: 'User created successfully.',
         data: user
       });
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}. failed to create user`});
+      response.status(400).json({status: 'error', message: `${error.message}. failed to create user`});
     }
   },
 
@@ -64,7 +64,7 @@ let UserController = {
     });
    
     } catch (error) {
-      response.json({status: 'error', message: "failed to retrieve auth user"});
+      response.status(400).json({status: 'error', message: "failed to retrieve auth user"});
     }
   },
   

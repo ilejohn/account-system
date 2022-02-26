@@ -22,4 +22,21 @@ module.exports = {
     }
   },
 
+  test: {
+    client: dbClient,
+    connection: {
+      host: dbHost,
+      port: dbPort,
+      user: dbUser,
+      password: dbPassword,
+      database: 'accountsystemtest'
+    },
+    migrations: {
+      tableName: 'migrations'
+    },
+    seeds: {
+      directory: '../test_seed'
+    }
+  },
+
 };

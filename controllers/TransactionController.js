@@ -15,7 +15,7 @@ let TransactionController = {
     });
    
     } catch (error) {
-      response.json({status: 'error', message: error.message});
+      response.status(400).json({status: 'error', message: error.message});
     }
   },
   
@@ -40,7 +40,7 @@ let TransactionController = {
         data: account
       });
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}. failed to fund account`});
+      response.status(400).json({status: 'error', message: `${error.message}. failed to fund account`});
     }
   },
 
@@ -62,7 +62,7 @@ let TransactionController = {
     });
    
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}, failed to retrieve auth user transactions`});
+      response.status(400).json({status: 'error', message: `${error.message}, failed to retrieve auth user transactions`});
     }
   },
 
@@ -96,7 +96,7 @@ let TransactionController = {
         data: account
       });
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}. failed to transfer`});
+      response.status(400).json({status: 'error', message: `${error.message}. failed to transfer`});
     }
   },
 
@@ -121,7 +121,7 @@ let TransactionController = {
         data: account
       });
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}. failed to withdraw`});
+      response.status(400).json({status: 'error', message: `${error.message}. failed to withdraw`});
     }
   },
 };

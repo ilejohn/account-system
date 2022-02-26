@@ -12,8 +12,8 @@ router.use('/accounts', accountRouter);
 router.use('/transactions', transactionsRouter);
 router.use('/users', userRouter);
 
-router.get('/', (req, res) => {
-  res.send(`${appName} is Online!`);
+router.get('/', (request, respond) => {
+  respond.send(`${appName} is Online!`);
 });
 
 module.exports = router;

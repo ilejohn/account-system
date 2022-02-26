@@ -24,7 +24,7 @@ router.post("/login", async (request, response) => {
             data: {user, token}
         })
     }).catch((error) => {
-        response.json({status: 'error', message: error.message});
+        response.status(400).json({status: 'error', message: error.message});
     })
 
 });

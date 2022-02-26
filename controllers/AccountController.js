@@ -13,7 +13,7 @@ let AccountController = {
       });
    
     } catch (error) {
-      response.json({status: 'error', message: "failed to retrieve accounts"});
+      response.status(400).json({status: 'error', message: "failed to retrieve accounts"});
     }
   },
   
@@ -24,14 +24,14 @@ let AccountController = {
       
       const account = await Account.create({user_id: user.id});
 
-      response.status(200).json({
+      response.status(201).json({
         status: 'success',
         message: 'Account created successfully.',
         data: account
       });
    
     } catch (error) {
-      response.json({status: 'error', message: `${error.message}.failed to create account`});
+      response.status(400).json({status: 'error', message: `${error.message}.failed to create account`});
     }
   },
 
@@ -49,7 +49,7 @@ let AccountController = {
       });
    
     } catch (error) {
-      response.json({status: 'error', message: error.message});
+      response.status(400).json({status: 'error', message: error.message});
     }
   },
 
