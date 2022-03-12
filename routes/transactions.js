@@ -6,9 +6,9 @@ let TransactionController = require("../controllers/TransactionController");
 
 router.use(authenticateUser)
 router.get("/", TransactionController.all);
-router.post("/", TransactionController.create);
-router.get("/:id", TransactionController.show);
-router.put("/:id", TransactionController.update);
-router.delete("/:id", TransactionController.delete);
+router.post("/fund-account", TransactionController.fundAccount);
+router.post("/transfer", TransactionController.transfer);
+router.post("/withdraw", TransactionController.withdraw);
+router.get("/auth", TransactionController.showAuthUserTransactions);
 
 module.exports = router;

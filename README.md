@@ -1,19 +1,30 @@
 # account-system
 
--copy and paste the content of .env.example into a new file called .env and set values based on your set environment configuration
+- Deploy Note:
 
-## Install dependencies
+copy and paste the content of .env.example into a new file called .env and set values based on your set environment configuration
+
+# Install dependencies
 ```
 npm install
 ```
 
-## Migrate migration files
+# Migrate migration files
 ```
 npm run migrate
 ```
 
-## seed database
+# To seed database
 ```
 npm run seed
 ```
--``
+
+# To run on local
+```
+npm run serve
+```
+
+# To run testing
+```
+npm run test
+```
