@@ -1,12 +1,13 @@
 let express = require("express");
 let router = express.Router();
 
-let { authenticateUser } = require("../middlewares");
-let AccountController = require("../controllers/AccountController");
+const { authenticateUser } = require("../middlewares");
+const validateCreateAccount = require("../validations/accounts/validateCreateAccount");
+const {all, create, showAuthUserAccount} = require("../controllers/AccountController");
 
 router.use(authenticateUser)
-router.get("/", AccountController.all);
-router.post("/", AccountController.create);
-router.get("/auth", AccountController.showAuthUserAccount);
+router.get("/", all);
+router.post("/", validateCreateAccount, create);
+router.get("/auth", showAuthUserAccount);
 
 module.exports = router;

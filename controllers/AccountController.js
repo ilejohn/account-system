@@ -27,11 +27,9 @@ let AccountController = {
      *
      */
   create: async (request, response) => {
-    const user = request.user;
-
     try {
       
-      const account = await Account.create({user_id: user.id});
+      const account = await Account.create({user_id: request.user.id});
 
       response.status(201).json({
         status: 'success',
@@ -50,15 +48,13 @@ let AccountController = {
      */
 
   showAuthUserAccount: async (request, response) => {
-    const user = request.user;
-
     try {
 
-      const account = await Account.get({user_id: user.id});
+      const account = await Account.get({user_id: request.user.id});
 
       response.status(200).json({
         status: 'success',
-        message: 'Auth User Account retrieved successfully.',
+        message: 'Auth user account retrieved successfully.',
         data: account ? account : null
       });
    

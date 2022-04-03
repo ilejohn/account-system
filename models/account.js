@@ -5,11 +5,6 @@ const all = () => {
 };
 
 const create = async (data) => {
-  const account = await db('accounts').where(data).first();
-
-  if (account) {
-    throw new Error('You already have an account');
-  }
   const id = await db('accounts').insert(data);
   
   return db('accounts').where('id', id[0]).first();

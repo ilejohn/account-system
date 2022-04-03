@@ -1,14 +1,18 @@
 let express = require("express");
 let router = express.Router();
 
-let { authenticateUser } = require("../middlewares");
-let TransactionController = require("../controllers/TransactionController");
+const { authenticateUser } = require("../middlewares");
+const validateFundAccount = require("../validations/transactions/validateFundAccount");
+const validateShowAuthUserTransactions = require("../validations/transactions/validateShowAuthUserTransactions");
+const validateTransfer = require("../validations/transactions/validateTransfer");
+const validateWithdraw = require("../validations/transactions/validateWithdraw");
+const {all, fundAccount, transfer, withdraw, showAuthUserTransactions} = require("../controllers/TransactionController");
 
 router.use(authenticateUser)
-router.get("/", TransactionController.all);
-router.post("/fund-account", TransactionController.fundAccount);
-router.post("/transfer", TransactionController.transfer);
-router.post("/withdraw", TransactionController.withdraw);
-router.get("/auth", TransactionController.showAuthUserTransactions);
+router.get("/", all);
+router.post("/fund-account", validateFundAccount, fundAccount);
+router.post("/transfer", validateTransfer, transfer);
+router.post("/withdraw", validateWithdraw, withdraw);
+router.get("/auth", validateShowAuthUserTransactions, showAuthUserTransactions);
 
 module.exports = router;

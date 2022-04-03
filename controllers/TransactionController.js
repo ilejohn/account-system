@@ -29,19 +29,9 @@ let TransactionController = {
      */
   
   fundAccount: async (request, response) => {
-    const amount = request.body.amount;
-    const user = request.user;
-
-    if (!amount) {
-      return response.status(422).json({status: 'error', message: 'Amount required'});
-    }
-
-    if(typeof amount !== 'number' || amount < 0) {
-      return response.status(422).json({status: 'error', message: 'Invalid amount supplied. Amount must be a positive number'});
-    }
 
     try {
-      const account = await Account.fund(user.id, amount);
+      const account = await Account.fund(request.user.id, request.body.amount);
 
       response.status(200).json({
         status: 'success',
@@ -59,15 +49,9 @@ let TransactionController = {
      */
 
   showAuthUserTransactions: async (request, response) => {
-    const user = request.user;
-
     try {
 
-      const account = await Account.get({user_id: user.id});
-      if (!account) {
-        return response.status(422).json({status: 'error', message: 'You have no account.'});
-      }
-      const transactions = await Transaction.getAuthTransactions(account.id);
+      const transactions = await Transaction.getAuthTransactions(request.userAccount.id);
 
       response.status(200).json({
         status: 'success',
@@ -90,22 +74,6 @@ let TransactionController = {
     const recepientEmail = request.body.email;
     const user = request.user;
 
-    if (!amount || !recepientEmail) {
-      return response.status(422).json({status: 'error', message: 'Amount and recepient email required'});
-    }
-
-    if(typeof amount !== 'number' || amount < 0) {
-      return response.status(422).json({status: 'error', message: 'Invalid amount supplied. Amount must be a positive number'});
-    }
-
-    if(!validateEmail(recepientEmail)) {
-      return response.status(422).json({status: 'error', message: 'Invalid Recepient Email'});
-    }
-
-    if(user.email === recepientEmail) {
-      return response.status(422).json({status: 'error', message: 'Cannot transfer to self'});
-    }
-
     try {
       const account = await Account.transfer(user.id, user.name, amount, recepientEmail);
 
@@ -127,15 +95,7 @@ let TransactionController = {
   withdraw: async (request, response) => {
     const amount = request.body.amount;
     const user = request.user;
-
-    if (!amount) {
-      return response.status(422).json({status: 'error', message: 'Amount required'});
-    }
-
-    if(typeof amount !== 'number' || amount < 0) {
-      return response.status(422).json({status: 'error', message: 'Invalid amount supplied. Amount must be a positive number'});
-    }
-
+    
     try {
       const account = await Account.withdraw(user.id, amount);
 
