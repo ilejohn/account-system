@@ -1,3 +1,4 @@
+const User = require("../../models/user");
 const validateEmail = require("../../validator/validateEmail");
 
 module.exports = async (request, response, next) => {
@@ -18,6 +19,12 @@ module.exports = async (request, response, next) => {
   
     if(!validateEmail(email)) {
       return response.status(422).json({status: 'error', message: 'Invalid email type supplied'});
+    }
+
+    const checkUser = await User.getUserByEmail(email);
+
+    if (checkUser !== undefined) {
+      return response.status(422).json({status: 'error', message: 'Email already exists'});
     }
 
     next();

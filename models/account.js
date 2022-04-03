@@ -16,11 +16,7 @@ const get = (data) => {
 
 const fund = async (user_id, amount) => {
     const account = await db('accounts').where('user_id', user_id).first();
-
-    if(!account) {
-        throw new Error('You do not have an account, please create one');
-    }
-
+    
     try {
         await db.transaction(async trx => {
 
@@ -48,25 +44,9 @@ const fund = async (user_id, amount) => {
 const transfer = async (userId, userName, amount, recepientEmail) => {
     const account = await db('accounts').where('user_id', userId).first();
 
-    if(!account) {
-        throw new Error('You do not have an account, please create one and fund it');
-    }
-
-    if (account.available_balance < amount) {
-        throw new Error('Your balance is insufficient for this transfer, please fund your account and try again');
-    }
-
     const recepient = await db('users').where('email', recepientEmail).first(); 
 
-    if (!recepient) {
-        throw new Error('Recepient is not registered'); 
-    }
-
     const recepientAccount = await db('accounts').where('user_id', recepient.id).first();
-
-    if(!recepientAccount) {
-        throw new Error('Recepient does not have an account');
-    }
 
     try {
         await db.transaction(async trx => {
@@ -122,14 +102,6 @@ const transfer = async (userId, userName, amount, recepientEmail) => {
 
 const withdraw = async(userId, amount) => {
     const account = await db('accounts').where('user_id', userId).first();
-
-    if(!account) {
-        throw new Error('You do not have an account, please create one and fund it');
-    }
-
-    if (account.available_balance < amount) {
-        throw new Error('Your balance is insufficient for this withdrawal, please fund your account and try again');
-    }
 
     try {
         await db.transaction(async trx => {
