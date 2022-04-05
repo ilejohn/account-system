@@ -30,6 +30,14 @@ describe("Test /accounts route", () => {
              expect(response.body.data.pending_debit_balance).toBe(0);
              expect(response.body.data.available_balance).toBe(0);
              expect(response.body.data.pending_credit_balance).toBe(0);
+    });
 
+    test("account creation when user has one account already", async () => {
+      await request(app).post("/accounts").set('Authorization', `Bearer ${token}`);
+      const response = await request(app).post("/accounts").set('Authorization', `Bearer ${token}`);
+       
+       expect(response.statusCode).toBe(403);
+       expect(response.body.status).toBe("error");
+       expect(response.body.message).toBe('You already have an account.');
     });    
 });

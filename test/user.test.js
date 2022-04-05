@@ -31,6 +31,19 @@ describe("Test /users route", () => {
                  expect(response.body.data.name).toBe(user.name);
                  expect(response.body.data.email).toBe(user.email);
 
+        });
+
+        test("user creation with invalid data", async () => {
+          const user = {
+             name: "",
+             email: "baltonexample.com"
+           };
+
+              const response = await request(app).post("/users").send(user);
+              expect(response.statusCode).toBe(422);
+              expect(response.body.status).toBe('error');
+              expect(response.body.message).toBe('Name and email required');
+
         });    
   });
  
@@ -52,4 +65,3 @@ describe("Test /users route", () => {
          });
   });
 });
-

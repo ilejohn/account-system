@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "nodemon index.js",
     "pretest": "cross-env APP_ENV=test npm run migrate:reset && npm run migrate:test",
-    "test": "cross-env APP_ENV=test jest --testTimeout=10000 --detectOpenHandles",
+    "test": "cross-env APP_ENV=test jest --testTimeout=10000 --detectOpenHandles --forceExit",
     "migrate": "knex migrate:latest --knexfile database/knexfile.js",
     "migrate:reset": "knex migrate:rollback --all --env test --knexfile database/knexfile.js",
     "migrate:test": "knex migrate:latest --env test --knexfile database/knexfile.js",
