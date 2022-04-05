@@ -1,6 +1,6 @@
 const request = require("supertest");
-const app = require("../app");
-const { appName } = require("../config");
+const app = require("../../app");
+const { appName } = require("../../config");
 
 describe("Test root and undefined paths", () => {
     test(`Should return the root path text: ${appName} is Online!`, async () => {

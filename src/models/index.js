@@ -1,4 +1,4 @@
-const { appEnv } = require("../config");
+const { appEnv } = require("../../config");
 const knexConfig = require('../database/knexfile');
 
 //initialize knex

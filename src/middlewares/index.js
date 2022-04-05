@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { appKey } = require("../config");
+const { appKey } = require("../../config");
 
 module.exports = {
   async authenticateUser(request, response, next) {

@@ -1,5 +1,5 @@
-require("dotenv").config({path: '../.env'});
-const {dbClient, dbHost, dbPort, dbUser, dbPassword, dbDatabase, dbDatabaseTest } = require("../config");
+require("dotenv").config({path: '../../.env'});
+const {dbClient, dbHost, dbPort, dbUser, dbPassword, dbDatabase, dbDatabaseTest } = require("../../config");
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */

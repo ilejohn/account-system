@@ -1,6 +1,6 @@
 const express = require("express");
 
-const apiRoutes = require("./routes");
+const apiRoutes = require("./src/routes");
 const app = express();
 
 //body parser middleware

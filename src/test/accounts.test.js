@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../app");
+const app = require("../../app");
 const db = require("../models/index");
 
 let token;

@@ -2,7 +2,7 @@ let express = require("express");
 let router = express.Router();
 const db = require("../models/index");
 const jwt = require("jsonwebtoken");
-const { appKey } = require("../config");
+const { appKey } = require("../../config");
 const { authenticateUser } = require("../middlewares");
 
 /**

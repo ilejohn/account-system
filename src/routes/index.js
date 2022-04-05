@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { appName } = require("../config");
+const { appName } = require("../../config");
 
 const authenticationRouter = require ('./authentication');
 const accountRouter = require ('./accounts');
